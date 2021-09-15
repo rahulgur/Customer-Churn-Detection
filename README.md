@@ -68,3 +68,8 @@ Insights:
 9)There is an average of 64 total transactions done by customers from the last 12 months and minimum of 10 transactions,maximum of 139 transactions from last 12 months.
 
 10)The average card utilization ratio of all the customers is 0.27
+
+
+Deployment:
+
+The Model Pipeline is deployed on Aws Cloud by creating the endpoint and lambda is created to invoke the endpoint which has been created.
