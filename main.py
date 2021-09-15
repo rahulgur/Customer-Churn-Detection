@@ -1,67 +1,26 @@
 import boto3
-# bucket = 'datalake-d1-bucket'
-# region = 'us-east-1'
-# s3_session = boto3.Session().resource('s3')
-# s3_session.Bucket(bucket).Object('train/train.csv').upload_file('train.csv')
-
-#!pip install joblib
-#pip install --user joblib
-#conda install -c anaconda joblib
-
-#from sklearn.externals import joblib
 import argparse
 import numpy as np
 import os
 import pandas as pd
-#from joblib import dump,load
-#from sklearn.linear_model import LogisticRegression
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
-#from __future__ import print_function
-
-#import time
 import sys
 from io import StringIO
-#import os
 import shutil
-
-#import argparse
-#import csv
-#import json
-#import numpy as np
-#import pandas as pd
-
 from sklearn.compose import ColumnTransformer
 from sklearn.externals import joblib
 from sklearn.impute import SimpleImputer
-#from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import Binarizer, StandardScaler, OneHotEncoder
 import warnings
 warnings.filterwarnings("ignore")
 from sklearn.preprocessing import StandardScaler,OneHotEncoder
-#from sklearn.impute import SimpleImputer
-#from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline,FeatureUnion
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix,accuracy_score,roc_auc_score,classification_report
 from sklearn.metrics import f1_score
-#from joblib import dump
-#from xgboost import XGBClassifier
-#import joblib from joblib
 from sklearn.ensemble import GradientBoostingClassifier
-#import s3fs
-#import sagemaker
-# from sagemaker.amazon.amazon_estimator import get_image_uri
 
-# container = get_image_uri(boto3.Session().region_name, 'xgboost', '1.0-1')
-# from sagemaker import get_execution_role
-
-# # Dictionary to convert labels to indices
-# LABEL_TO_INDEX = {
-#     'Iris-virginica': 0,
-#     'Iris-versicolor': 1,
-#     'Iris-setosa': 2
-# }
 
 # Dictionary to convert indices to labels
 INDEX_TO_LABEL = {
@@ -211,42 +170,21 @@ if __name__ =='__main__':
    #print(str(args.train)+" Arg passing ")
    cr_data = pd.read_csv(os.path.join(args.train,'train.csv'), index_col=0, engine="python")
     
-   #Hardcoded has to include this in config file
+   
    X=cr_data.drop(['CLIENTNUM','Churn_Status'],axis=1)
    y=cr_data[['Churn_Status']]
 
-   # select numeric columns
-   # df_numeric = X.select_dtypes(include=['float64','int64'])
-
-   # numerical_features = df_numeric.columns.values
-   # print(numerical_features)
+  
    numerical_features = ['Customer_Age',  'Dependent_count', 'Months_on_book','Total_Relationship_Count', 'Months_Inactive_12_mon','Contacts_Count_12_mon', 'Credit_Limit', 'Total_Revolving_Bal','Avg_Open_To_Buy', 'Total_Amt_Chng_Q4_Q1', 'Total_Trans_Amt','Total_Trans_Ct', 'Total_Ct_Chng_Q4_Q1', 'Avg_Utilization_Ratio']
 
 
-   # select non numeric columns
-   # df_non_numeric = X.select_dtypes(include=['object'])
-   # categorical_features  = df_non_numeric.columns.values
-   # print(categorical_features)
+   
    categorical_features = ['Gender','Education_Level','Marital_Status','Income_Category','Card_Category']
 
 
-   #Outlier detection and Removel.
-   # def Outlier_manup():
-   #    for feature in numerical_features:
-   #       cr_data[feature]=np.where(cr_data[feature]<cr_data[feature].quantile(0.05),cr_data[feature].quantile(0.05),cr_data[feature])
-   #    for feature in numerical_features:
-   #       cr_data[feature]=np.where(cr_data[feature]>cr_data[feature].quantile(0.95),cr_data[feature].quantile(0.95),cr_data[feature])
-      
+   
 
-   # #separating numerical and catagorical data
-#    categorical = X[categorical_features]
-#    numeric = X[ numerical_features]
-#    print(numeric)
-#    print(categorical)
-   # categorical=[col for col in cr_data.columns if cr_data[col].dtype=='object']
-   # numeric=[col for col in cr_data.columns if cr_data[col].dtype in ['int64','float64']]
-   #numeric_features_list = list(numerical_features)
-
+  
    
 
    #Numerical operations contain data cleaning and feature engineering
@@ -304,24 +242,8 @@ if __name__ =='__main__':
    print(args.model_dir)
    joblib.dump(model_pipeline, os.path.join(args.model_dir, "test_model.joblib"))
 
-   #result of the model using test set
-#    y_dt_prob = model_pipeline.predict_proba(X_test)
-#    y_dt_pre = model_pipeline.predict(X_test)
-#    print(y_dt_pre)
-#    print(y_dt_prob)
-
-#    #eli5.explain_weights(model_pipeline.named_steps['classifier'], top=5, feature_names=numeric)
-
-#    # pyp.bar(range(len(model_pipeline.steps['classifer'].feature_importances_)), model_pipeline.steps['classifier'].feature_importances_)
-#    # pyp.show()
+   
 
 
 
-#    y_pred=model_pipeline.predict(X_test)
-#    print(roc_auc_score(y_test,y_pred))
-
-
-#    print(classification_report(y_test,y_pred))
-
-#    print(confusion_matrix(y_test,y_pred))
 
