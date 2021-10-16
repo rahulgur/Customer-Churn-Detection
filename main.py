@@ -58,8 +58,7 @@ Note: Oftentimes, you will have multiple cases in order to
 handle various request_content_types. Howver, in this simple case, we are 
 only going to accept text/csv and raise an error for all other formats.
 """
-#def input_fn(request_body,content_type):
-#    return request_body
+
 
 
 def input_fn(request_body,content_type):
@@ -76,9 +75,7 @@ def input_fn(request_body,content_type):
         samples.append(list1)
     return np.array(samples,dtype='object')'''
     
-#     sample_np = np.array(samples)
-#     df = pd.DataFrame(sample_np,columns = ['Customer_Age',  'Dependent_count', 'Months_on_book','Total_Relationship_Count', 'Months_Inactive_12_mon','Contacts_Count_12_mon', 'Credit_Limit', 'Total_Revolving_Bal','Avg_Open_To_Buy', 'Total_Amt_Chng_Q4_Q1', 'Total_Trans_Amt','Total_Trans_Ct', 'Total_Ct_Chng_Q4_Q1', 'Avg_Utilization_Ratio','Gender','Education_Level','Marital_Status','Income_Category','Card_Category'])
-#     return(df)
+
 """
 predict_fn
     input_data: (numpy array) returned array from input_fn above 
@@ -166,8 +163,7 @@ if __name__ =='__main__':
    args = parser.parse_args()
 
 
-   #Importing CSV
-   #print(str(args.train)+" Arg passing ")
+   
    cr_data = pd.read_csv(os.path.join(args.train,'train.csv'), index_col=0, engine="python")
     
    
